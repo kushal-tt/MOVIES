@@ -1,16 +1,2 @@
-<h1>Ratings for <%= @movie.title %></h1>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @movie.ratings.each do |rating| %>
-      <tr>
-        <td><%= rating.user.email %></td>
-        <td><%= rating.score %></td>
-      </tr>
-    <% end %>
-  </tbody>
 
+ 
