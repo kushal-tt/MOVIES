@@ -6,7 +6,7 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, opts = {})
+  def respond_with(resource)
     if resource.persisted?
       render json: {
         status: {code: 200, message: 'Signed up sucessfully.'},
