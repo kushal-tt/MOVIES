@@ -1,0 +1,67 @@
+<style>
+  .movie-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .rating-form {
+    margin-top: 20px;
+  }
+
+  .rating-form .field {
+    margin-bottom: 10px;
+  }
+
+  .rating-form label {
+    display: block;
+    font-weight: bold;
+  }
+
+  .rating-form select {
+    width: 100px;
+  }
+
+  .rating-form textarea {
+    width: 300px;
+    height: 100px;
+  }
+
+  .rating-form .actions {
+    margin-top: 10px;
+  }
+
+  .sign-in-message {
+    margin-top: 20px;
+  }
+</style>
+
+<h1 class="movie-title"><%= @movie.title.upcase%></h1>
+
+<% if user_signed_in? %>
+  <div class="rating-form">
+    <%= form_with(model: [@movie, @movie.ratings.build], url: movie_ratings_path(@movie), local: true) do |form| %>
+      <div class="field">
+        <%= form.label :score %>
+        <%= form.select :score, (1..5) %>
+      </div>
+      <div class="field">
+        <%= form.label :review %>
+        <%= form.text_area :review %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Submit Rating', onclick: "window.location.href = '#{movie_path(@movie)}'" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="sign-in-message">Please sign in to rate this movie.</p>
+<% end %>
+<div style="position: absolute; top: 10px; left: 100px;">
+    <%= link_to 'Back', movies_path, class: 'back-button' %>
+  </div>
+
+
+
+
+

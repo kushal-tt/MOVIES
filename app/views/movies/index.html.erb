@@ -1,0 +1,126 @@
+<style>
+  .movies-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .movie {
+    background-color: lightcyan;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+  }
+
+  .movie h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .movie h3 {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .movie p {
+    font-size: 14px;
+    color: black;
+    margin-bottom: 5px;
+  }
+
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  .star-icon {
+    vertical-align: middle;
+    margin-left: 3px;
+  height: 15px; 
+  width: 15px; 
+  margin-bottom: 5px;
+  }
+
+  .genre {
+    margin-bottom: 20px;
+  }
+
+  .movie p1 {
+    height: 50px; 
+    width: 50px; 
+  }
+
+
+.movie .image {
+   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.movie .description {
+  margin-bottom: 50px;
+  display: flex;
+  gap: 10px;
+  font-size: 45px;
+}
+
+.movie .image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+.movie .description h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+
+</style>
+
+<div class="movies-container">
+  <h1>Movies</h1>
+  <h2>Rate your favorite movie</h2>
+
+  <%= form_tag movies_path, method: :get do %>
+    <div class="search-bar">
+      <%= text_field_tag :search, params[:search], placeholder: 'Search movies...' %> 
+       <%= select_tag :genre_id, options_from_collection_for_select(Genre.all, :id, :name, params[:genre_id]), prompt: 'Select genre' %>
+      <%= submit_tag 'Search' %>  <%= link_to 'Cancel', movies_path, class: 'back-button' %>
+    </div>
+  <% end %>
+
+
+<% if @movies.empty? %>
+  <p>No results found.</p>
+<% else %>
+ <div class="movies-list">
+    <% @movies.each do |movie| %>
+      <div class="movie">
+        <h2><%= link_to "#{movie.title.upcase} (#{movie.release_date.year})", movie %>
+       </h2>
+        
+        <div class="image">
+          <% if movie.image.attached? %>
+        <%= image_tag(movie.image, size: "150x150") %>
+          <% else %>
+        <%= image_tag('default.png', size: "150x150") %>
+          <% end %>
+          
+          <div class="description"> <h3><%= movie.description %></h3></div>
+          </div>
+         
+        <p>Average Rating: <%= movie.average_rating %> <%= image_tag('star.png', alt: 'Star', class: 'star-icon')%></p>
+
+
+        
+        
+          
+      </div>
+    <% end %>
+  </div> 
+  <% end %>
+  <div style="position: absolute; top: 10px; left: 100px;">
+    <%= link_to 'My Reviews', user_reviews_path %>
+  </div>
+</div>

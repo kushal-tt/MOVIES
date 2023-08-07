@@ -1,0 +1,80 @@
+<style>
+  .user-reviews-table {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .movie {
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .movie h2 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    text-decoration: none;
+  }
+
+  .movie h3 {
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .movie p {
+    font-size: 20px;
+    color: black;
+    margin-bottom: 2px;
+    margin-top: 10px
+  }
+
+  .star-icon {
+    vertical-align: middle;
+    margin-left: 3px;
+  height: 15px; 
+  width: 15px; 
+  margin-bottom: 5px;
+  }
+
+  .rating-container {
+  display: flex;
+  align-items: center;
+  gap: 500px;
+}
+
+.edit-delete-links {
+  font-size: 20px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+</style>
+
+<div class="user-reviews-table">
+  <h1>My Reviews</h1>  
+
+
+<div class="review-list">
+   <% @user_reviews.each do |rating| %>
+    <div class="movie">
+      <h2><%= rating.movie.title.upcase%></h2>
+      <h3><%= rating.review %></h3>
+      <div class="rating-container">
+  <p>Your Rating: <%= rating.score %><%= image_tag('star.png', alt: 'Star', class: 'star-icon')%></p>
+  <div class="edit-delete-links">
+    <%= link_to 'Edit', edit_user_review_path(rating) %>
+    <%= button_to 'Delete', user_review_path(rating), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>
+    </div>
+  <% end %>
+</div>
+
+
+  <div style="position: absolute; top: 10px; left: 100px;">
+    <%= link_to 'Back', movies_path, class: 'back-button' %>
+  </div>
+  </div>
+

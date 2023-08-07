@@ -1,0 +1,64 @@
+<style>
+  .movie-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .rating-form {
+    margin-top: 20px;
+  }
+
+  .rating-form .field {
+    margin-bottom: 10px;
+  }
+
+  .rating-form label {
+    display: block;
+    font-weight: bold;
+  }
+
+  .rating-form select {
+    width: 100px;
+  }
+
+  .rating-form textarea {
+    width: 300px;
+    height: 100px;
+  }
+
+  .rating-form .actions {
+    margin-top: 10px;
+  }
+
+</style>
+
+<h1 class="movie-title"><h1>Edit Review</h1>
+</h1>
+
+<% if user_signed_in? %>
+  <div class="rating-form">
+    <%= form_with(model: @rating, url: user_review_path(@rating.id), method: :patch) do |form| %>
+      <div class="field">
+        <%= form.label :score %>
+        <%= form.select :score, (1..5),selected: @rating.score %>
+      </div>
+      <div class="field">
+        <%= form.label :review %>
+        <%= form.text_area :review %>
+      </div>
+      <div class="actions">
+    <%= form.submit 'Update Review' %>
+  
+    <% end %>
+  <%= link_to 'Cancel', user_reviews_path %>
+  </div>
+
+
+<% end %>
+
+
+
+
+
+

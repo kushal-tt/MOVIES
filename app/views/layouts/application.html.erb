@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+
+<style >
+    .flash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flash {
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+
+}
+
+.flash.notice {
+  background-color: lightgreen;
+}
+
+.flash.alert {
+  background-color: indianred;
+}
+
+</style>
+
+<div>
+   <% if user_signed_in? %>
+  <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" }, form_class: "logout-form" %>
+<% else %>
+  <%= button_to "Login page", new_user_session_path %>
+<% end %>
+</div>
+
+    <div class="flash-container">
+  <% flash.each do |key, message| %>
+    <div class="flash <%= key %>">
+      <%= message %>
+    </div>
+  <% end %>
+ </div>
+
+ 
+
+    <%= yield %>
+  </body>
+</html>
